@@ -1,0 +1,48 @@
+{
+  "name": "growl-js",
+  "version": "1.0.0",
+  "scripts": {
+    "build-production": "webpack --mode production",
+    "build-development": "webpack --mode development"
+  },
+  "dependencies": {
+    "animejs": "^3.2.0",
+    "jquery": ">=1.7.0 <4.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.10.2",
+    "@babel/plugin-transform-runtime": "^7.10.1",
+    "@babel/preset-env": "^7.10.2",
+    "autoprefixer": "^9.8.0",
+    "babel-loader": "^8.1.0",
+    "css-loader": "^3.6.0",
+    "html-webpack-plugin": "^4.3.0",
+    "mini-css-extract-plugin": "^0.9.0",
+    "postcss-loader": "^3.0.0",
+    "stylus": "^0.54.7",
+    "stylus-loader": "^3.0.2",
+    "terser-webpack-plugin": "^3.0.6",
+    "webpack": "^4.43.0",
+    "webpack-clean-obsolete-chunks": "^0.4.0",
+    "webpack-cli": "^3.3.12"
+  },
+  "description": "<h1>Growl-js</h1>",
+  "main": "src/growl.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aamasri/growl-js.git"
+  },
+  "keywords": [
+    "growl",
+    "notification",
+    "notifications",
+    "javascript",
+    "popup"
+  ],
+  "author": "Ananda Masri <ananda@auroraweb.ca> (https://auroraweb.ca)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/aamasri/growl-js/issues"
+  },
+  "homepage": "https://github.com/aamasri/growl-js#readme"
+}

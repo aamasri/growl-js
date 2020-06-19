@@ -1,0 +1,135 @@
+/* growl message popup system */
+
+$growlBackground = #000
+$growlBorder = 1px solid $growlBackground
+$growlBoxShadow = 0 0 28px #CCC
+$xxs = 8px
+$xs = 12px
+$sm = 16px
+$md = 20px
+$lg = 24px
+$xl = 28px
+$xxl = 32px
+
+#growlNoticeboard
+    position fixed
+    top 80px
+    right 3%
+    max-width 94%
+    text-align right
+    z-index 100
+
+div.growlBox
+    min-width 12rem
+    max-width 100%
+    margin-bottom 5px
+    cursor pointer
+    opacity 0.9
+
+    &:hover
+        box-shadow none
+        opacity 1
+
+    .bubble
+        position absolute
+        background-color $growlBackground
+        border $growlBorder
+        box-shadow $growlBoxShadow
+        opacity 0.7
+
+        .bubble
+            opacity 1
+
+    .content
+        padding 10px
+        background-color $growlBackground
+        border $growlBorder
+        border-radius 6px
+        box-shadow $growlBoxShadow
+        color #FFF
+        font-size 1rem
+        line-height 1.5rem
+        text-align left
+
+        > .icon
+            font-size 2.5rem
+            line-height 2.5rem
+            width 3rem
+            height 3rem
+            margin 0 1rem 0.5rem 0
+            float left
+
+            &.text-success
+                color #5cb85c
+                fill #5cb85c
+
+            &.text-danger
+                color #d9534f
+                fill #d9534f
+
+            &.text-warning
+                color #f0ad4e
+                fill #f0ad4e
+
+            &.text-info
+                color #5bc0de
+                fill #5bc0de
+
+    .disableTutorialButton
+        margin 10px 0 0 0
+
+    .message
+        font-size inherit
+        line-height inherit
+
+        *
+            margin 0
+            font-size inherit
+            line-height inherit
+
+            &.xs
+                font-size $xxs
+                line-height $xs
+
+            &.sm
+                font-size $xs
+                line-height $sm
+
+            &.lg
+                font-size $md
+                line-height $lg
+
+            &.xl
+                font-size $lg
+                line-height $xl
+
+            &.xxl
+                font-size $xl
+                line-height $xxl
+
+        a
+            border-bottom 1px solid #888
+
+        ul
+            list-style disc
+            list-style-position inside
+        li
+            display list-item
+
+    .progress
+        position relative
+        float left
+        margin -2px 0 0 1px
+        height 2px
+        border-radius 0 0 0 4px
+        background-color #428bca
+
+    &.success .progress
+        background-color #5CB85E
+
+    &.warning .progress
+        background-color #f0ad4e
+
+    &.error .progress
+    &.danger .progress
+        background-color #d9534f

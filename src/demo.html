@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Example Growl</title>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+
+    <style>
+        html { font-family: Ubuntu, 'sans-serif'; line-height: 2; padding: 10px 3%; }
+        button { border: none; border-radius: 6px; background-color: #5bc0de; color: white; padding: 10px; outline: none; cursor: pointer; }
+        #target2 { float: right; background-color: #d9534f; margin-top: 300px; }
+        #target3 { float: right; margin: 50% 10% 0 0; background-color: #f0ad4e; }
+        strong { color: #5bc0de }
+    </style>
+</head>
+
+<body>
+
+<h1>Growl Demo</h1>
+
+<button id="target1">Target 1</button>
+<button id="target2">Target 2</button>
+<button id="target3">Target 3</button>
+
+
+<script>
+    let clickCount = 0;
+    document.getElementById('target1').onclick = function(event) {
+        growl({
+            message: `You've clicked this button <strong>${++clickCount}</strong> times`,
+            target: event.target,
+            overwrite: true
+        }).then(function () {
+            console.debug('growl on target1 completed');
+
+            // note that the target option is not specified.
+            growl({
+                message: 'Excellent, Growl is working!',
+                type: 'success',
+            })
+        });
+    };
+
+    document.getElementById('target2').onclick = function(event) {
+        growl({
+            message: `You've got to read this!<br><span style="font-size: small;">(Click to close)</span>`,
+            type: 'error',
+            target: event.target,
+            duration: 0     // persistent
+        }).then(function () {
+            console.debug('growl on target2 completed');
+        });
+    };
+
+    document.getElementById('target3').onclick = function(event) {
+        growl({
+            message: `Notifications are optimally positioned (relative to the target & browser viewport).<br><br>The duration of this notification is automatic (i.e. based on the message length & <span style="color:#f0ad4e">type</span>).`,
+            type: 'warning',
+            target: event.target
+        }).then(function () {
+            console.debug('growl on target3 completed');
+        });
+    };
+</script>
+
+</body>
+</html>
