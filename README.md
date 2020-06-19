@@ -3,7 +3,6 @@
 <p>A classy notification system for the browser.</p>
 
 <img src="https://auroraweb.ca/uploads/aurora/webpage/205/growl.png" width="400px" alt="">
-<br>
 <pre>
 growl({ message: 'Excellent, Growl is working!', target: 'button' });
 </pre>
@@ -17,17 +16,17 @@ growl({ message: 'Excellent, Growl is working!', target: 'button' });
     <li>Auto-positioning based on the target element's position.</li>
     <li>Target element can be specified by standard css selector, DOM element, or jQuery object.</li>
     <li>Automatic duration based on message length & type.</li>
-    <li>Implementing the 'Promise' interface, which allows your script to execute notifications sequentially.</li> 
+    <li>Implements the 'Promise' interface, allowing sequential notifications.</li> 
 </ul>
 
 <br><br>
 <h2>Installation</h2>
-Growl is a javascript package built using the ES6 module system, but also provided as a pre-built, minified browser package (in this package's "dist" folder).
+Growl-js is a javascript package built for and using the ES6 module system, but it also provided as a pre-built, minified browser package (in this package's "dist" folder).
 
 <br>
 <h3>Browser</h3>
 
-1. Copy this package's "dist" folder into your web server's public folder eg. ```public/js/dist/*```.
+1. Download & copy this package's "dist" folder into your web server's public folder eg. ```public/js/dist/*```.
 2. Rename "dist" to "growl" eg. ```public/js/growl```
 3. Load the growl script at the end of your web page (before the closing `body` tag) like this:
 ```
@@ -53,13 +52,15 @@ Growl is a javascript package built using the ES6 module system, but also provid
     
 <br>
 <h3>ES6 module</h3>
-ES6 modules are not directly compatible with most browsers and are must be transpiled into a browser bundle using the <strong>Webpack</strong> build system.
+ES6 modules are not supported natively by most browsers and must be transpiled into a browser bundle using the <strong>Webpack</strong> build system.
 <br><br>
-First, install the growl package in your project from the terminal:
-```
-  $ npm install growl-js --save
-```        
+First, install the growl package into your project (from the terminal): 
+<pre>
+$ cd to/your/project
+$ npm install growl-js
+</pre>        
 
+Then import and use it in your project's ES6 modules:
 <h4>Static import</h4>
 <pre>
 import growl from 'growl';
@@ -80,9 +81,9 @@ import(/* webpackChunkName: "growl" */ 'growl').then((module) => {
 
 <br><br>
 <h2>Growl Options</h2>
-Growl is invoked with an options object.
+The growl function expects to be invoked with an options object.
 <br>
-Eg. ```growl({ message: 'Hi' });```
+Eg. <pre>growl({ message: 'Hi' });</pre>
 <br><br>
 Here's a full list of options:
 <table>
