@@ -81,16 +81,15 @@ import(/* webpackChunkName: "growl" */ 'growl').then((module) => {
 
 <br><br>
 <h2>Growl Options</h2>
-The growl function expects to be invoked with an options object.
-<br>
-Eg. <pre>growl({ message: 'Hi' });</pre>
+The growl function expects to be invoked with an options object. Eg.
+<pre>growl({ message: 'Hi' });</pre>
 <br><br>
-Here's a full list of options:
+Here's the full list of options:
 <table>
 <tr><th>Option</th><th>Type</th><th>Description</th><th>Default</th></tr>
 <tr><td>message</td><td>(required) string</td><td>the message content to display (plain text or simple HTML)</td><td>[error] "Missing message content!"</td></tr>
 <tr><td>type</td><td>(optional) string</td><td>the type of message ie. 'success', 'error', 'warning', or 'info'.</td><td>info</td></tr>
-<tr><td>target</td><td>(optional) DOM element, css selector string, or jQuery object</td><td>(optional) element to associate the growl notification with.</td><td>#growlNoticeboard</td></tr>
+<tr><td>target</td><td>(optional) DOM element, CSS selector string, or jQuery object</td><td>(optional) element to associate the growl notification with.</td><td>#growlNoticeboard</td></tr>
 <tr><td>duration</td><td>(optional) number</td><td>how long the message is displayed (in seconds). 0 => must be dismissed by the end-user.</td><td>automatic (based on message length/type)</td></tr>
 <tr><td>overwrite</td><td>(optional) boolean</td><td>whether this growl message will replace any existing notification on the same target.</td><td>false</td></tr>
 </table>
@@ -99,7 +98,7 @@ Here's a full list of options:
 Eg. using all the options:
 <pre>
     growl({
-        message: 'You've selected "<strong>Delete my account</strong>!',
+        message: 'You've selected "&lt;strong&gt;Delete my account&lt;/strong&gt;"!',
         type: 'warning',
         target: 'input[type=submit]',
         duration: 10,
@@ -121,10 +120,12 @@ Since growl.js implements the 'Promise' interface, your scripts can build sequen
             target: event.target,
             overwrite: true
         }).then(function() {
-            growl({
-                message: 'I hope you're enjoying our app!',
-                type: 'success',
-            })
+            if (clickCount === 3) {
+                growl({
+                    message: 'I hope you're enjoying our app!',
+                    type: 'success',
+                });
+            }
         });
     };
 </pre>
@@ -137,9 +138,7 @@ Since growl.js implements the 'Promise' interface, your scripts can build sequen
 Growl-js supports [npm](https://www.npmjs.com/package/growl-js) under the name `growl-js`.
 
 <h3>NPM</h3>
-```
-  $ npm install growl-js --save
-```
+<pre>$ npm install growl-js --save</pre>
 
 <br>
 <h3>Dependencies</h3>
@@ -152,7 +151,7 @@ These dependencies are bundled (as separate pre-built 'chunks') in this package'
 <br>
 Invoking the growl() function will dynamically load these dependencies at run-time (if these scripts don't already exist on the page) and they'll be added to the global window object.
 <br>
-If your page does already use jQuery or animejs, growl will use them.
+If your page already uses jQuery or animejs, growl will use them instead.
 
 
 <br><br>
@@ -168,7 +167,7 @@ If your page does already use jQuery or animejs, growl will use them.
 * Create a github release and upload the minified file
 * Change the `latest` tag pointer to the latest commit
   * `git tag -f latest`
-  * `git push <remote> :refs/tags/latest`
+  * `git push origin master :refs/tags/latest`
   * `git push origin master --tags`
 * Release on npm
 
