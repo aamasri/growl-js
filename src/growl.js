@@ -1,5 +1,5 @@
 /*
- * growl.js 1.0.0
+ * growl.js 1.0.4
  * (c) 2020 Ananda Masri
  * Released under the MIT license
  * auroraweb.ca/giving-back/growl
@@ -57,7 +57,8 @@ export default async function growl(options) {
     // warn if no message supplied
     if (typeof options.message !== 'string' || !options.message.length) {
         options.message = 'Missing message content!';
-        options.type = 'danger';
+        options.type = 'error';
+        options.duration = 0;   // persistent (provides a means to examine the growl DOM)
     } else
         options.message = decode(options.message);
 
@@ -210,7 +211,7 @@ export default async function growl(options) {
             }
 
             // apply the calculated position & z-index to the new growl message
-            $growlBox.css({ 'top': growlOffset.top + 'px', 'left': growlOffset.left + 'px', 'z-index': $target.get(0).style.zIndex });
+            $growlBox.css({ 'top': growlOffset.top + 'px', 'left': growlOffset.left + 'px', 'z-index': domUtils.zIndexRange().highestZ });
 
             // remove the growl box if it's target element disappears
             $target.on('remove', function () {
