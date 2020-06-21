@@ -157,21 +157,23 @@ If your page already uses jQuery or animejs, growl will use them instead.
 <br><br>
 
 ## Manual release steps
-1. Increment the "version" attribute of `package.json`.
-2. Increment the version number in the `src/growl.js` file.
-3. At the command line ```> npm run build-production```.
-4. Observe that webpack completed with no errors.
-5. Test by loading page: "dist/index.html" in a browser.  
-5. Commit with the message "Release version x.x.x".
-6. Create version tag in git.
-7. Create a github release and upload the minified file
-8 Change the `latest` tag pointer to the latest commit:
-  * `git tag -f latest`
-  * `git push origin master :refs/tags/latest`
-  * `git push origin master --tags`
-9 Release on npm.
+<ol>
+<li>Increment the "version" attribute of `package.json`.</li>
+<li>Increment the version number in the `src/growl.js` file.</li>
+<li>Re-build the browser output bundle...<pre>npm run build-production</pre>
+...and observe that webpack completed with no errors.</li>
+<li>Test the bundle by loading page: "dist/index.html" in a browser.</li>
+<li>Git Commit (commit message should start with "Release version x.x.x").</li>
+<li>Tag the commit with it's version number: "x.x.x".</li>
+<li>Change the "latest" tag pointer to the latest commit & push:
+    <pre>git tag -f latest
+git push origin master :refs/tags/latest
+git push origin master --tags</pre>
+<li>Publish to npm registry:<pre>npm publish</pre></li>
+</ol>
 
-## Authors
+<br>
+<h2>Authors</h2>
 
 * [Ananda Masri](https://github.com/aamasri)
 * And awesome [contributors](https://github.com/aamasri/growl-js/graphs/contributors)

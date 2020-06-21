@@ -1,5 +1,5 @@
 /*
- * growl.js 1.0.4
+ * growl.js 1.0.5
  * (c) 2020 Ananda Masri
  * Released under the MIT license
  * auroraweb.ca/giving-back/growl
