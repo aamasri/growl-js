@@ -1,9 +1,9 @@
 {
   "name": "growl-js",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "scripts": {
     "build-production": "webpack --mode production",
-    "build-development": "webpack --mode development"
+    "build": "webpack --mode development"
   },
   "dependencies": {
     "animejs": "^3.2.0",

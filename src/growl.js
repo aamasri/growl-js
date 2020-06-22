@@ -1,5 +1,5 @@
 /*
- * growl.js 1.0.5
+ * growl.js 1.0.6
  * (c) 2020 Ananda Masri
  * Released under the MIT license
  * auroraweb.ca/giving-back/growl
@@ -109,6 +109,7 @@ export default async function growl(options) {
 
     // convert target (selector, DOM element, or jQuery object) to jQuery object
     const $target = jQuery(options.target);
+    const onTop = domUtils.zIndexRange().highest;
 
     let $growlBox;
 
@@ -211,7 +212,7 @@ export default async function growl(options) {
             }
 
             // apply the calculated position & z-index to the new growl message
-            $growlBox.css({ 'top': growlOffset.top + 'px', 'left': growlOffset.left + 'px', 'z-index': domUtils.zIndexRange().highestZ });
+            $growlBox.css({ 'top': growlOffset.top + 'px', 'left': growlOffset.left + 'px', 'z-index': onTop });
 
             // remove the growl box if it's target element disappears
             $target.on('remove', function () {
@@ -232,7 +233,6 @@ export default async function growl(options) {
                 $growlNoticeboard.css({ 'top':'10px', 'right':'10px' });
         }
 
-
         // create the growl box
         if (options.overwrite) {
             $growlNoticeboard.children('div.growlBox').each(function() {
@@ -241,7 +241,7 @@ export default async function growl(options) {
             $growlNoticeboard.empty();
         }
 
-        $growlNoticeboard.css('z-index', domUtils.zIndexRange().highestZ);	// position noticeboard on top
+        $growlNoticeboard.css('z-index', onTop);	// position noticeboard on top
 
         // create growl, it's message content and append it to noticeboard
         $growlBox = jQuery('<div id="growlBox' + growlMessageCount + '" class="growlBox '+options.type+'" style="position:relative;"></div>');

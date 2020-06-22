@@ -52,13 +52,11 @@ Growl-js is a javascript package built for and using the ES6 module system, but 
     
 <br>
 <h3>ES6 module</h3>
-ES6 modules are not supported natively by most browsers and must be transpiled into a browser bundle using the <strong>Webpack</strong> build system.
-<br><br>
-First, install the growl package into your project (from the terminal): 
+Install the growl-js package into your project using npm: 
 <pre>
 $ cd to/your/project
 $ npm install growl-js
-</pre>        
+</pre>
 
 Then import and use it in your project's ES6 modules:
 <h4>Static import</h4>
