@@ -1,6 +1,6 @@
 {
   "name": "growl-js",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "scripts": {
     "build-production": "webpack --mode production",
     "build": "webpack --mode development"
@@ -26,7 +26,7 @@
     "webpack-clean-obsolete-chunks": "^0.4.0",
     "webpack-cli": "^3.3.12"
   },
-  "description": "<h1>Growl-js</h1>",
+  "description": "A classy notification system for the browser",
   "main": "src/growl.js",
   "repository": {
     "type": "git",
@@ -41,6 +41,9 @@
   ],
   "author": "Ananda Masri <ananda@auroraweb.ca> (https://auroraweb.ca)",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "bugs": {
     "url": "https://github.com/aamasri/growl-js/issues"
   },

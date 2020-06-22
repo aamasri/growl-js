@@ -1,5 +1,5 @@
 /*
- * growl.js 1.0.6
+ * growl.js 1.0.7
  * (c) 2020 Ananda Masri
  * Released under the MIT license
  * auroraweb.ca/giving-back/growl
@@ -10,7 +10,6 @@ import './growl.styl';
 // module scope vars
 const debug = false;
 let growlMessageCount = 0;
-let domUtils;
 
 
 /* launches a popup notification with options
@@ -48,7 +47,7 @@ export default async function growl(options) {
         window.anime = window.anime.default;
     }
 
-    domUtils = await import(/* webpackChunkName: "dom-utils" */ './dom-utils');
+    const domUtils = await import(/* webpackChunkName: "dom-utils" */ './dom-utils');
 
     if (debug) console.log('checking window.anime loaded', window.anime);
 
@@ -109,13 +108,13 @@ export default async function growl(options) {
 
     // convert target (selector, DOM element, or jQuery object) to jQuery object
     const $target = jQuery(options.target);
-    const onTop = domUtils.zIndexRange().highest;
+    const onTop = domUtils.onTopZIndex();
 
     let $growlBox;
 
     // setup growl target location (where messages will appear)
     if ($target.length) {
-        const targetSpace = domUtils.positionVisible($target);
+        const targetSpace = domUtils.getViewportOffset($target);
         const targetOffset = $target.offset();
         let growlOffset = {};
 

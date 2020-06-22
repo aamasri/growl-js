@@ -161,7 +161,7 @@ If your page already uses jQuery or animejs, growl will use them instead.
 <li>Re-build the browser output bundle...<pre>npm run build-production</pre>
 ...and observe that webpack completed with no errors.</li>
 <li>Test the bundle by loading page: "dist/index.html" in a browser.</li>
-<li>Git Commit (commit message should start with "Release version x.x.x").</li>
+<li>Commit <pre>git commit -m "Release version x.x.x - description"</pre></li>
 <li>Tag the commit with it's version number: "x.x.x".</li>
 <li>Change the "latest" tag pointer to the latest commit & push:
     <pre>git tag -f latest
