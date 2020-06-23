@@ -144,12 +144,13 @@ Growl-js depends on 2 external packages:
 <ol>
 <li>jquery</li>
 <li>animejs</li>
+<li>@aamasri/dom-utils</li>
 </ol>
 These dependencies are bundled (as separate pre-built 'chunks') in this package's "dist" folder.  
 <br>
 Invoking the growl() function will dynamically load these dependencies at run-time (if these scripts don't already exist on the page) and they'll be added to the global window object.
 <br>
-If your page already uses jQuery or animejs, growl will use them instead.
+If your page already uses the jQuery, animejs, or @aamasri/dom-utils packages, growl will use them instead.
 
 
 <br><br>
@@ -161,7 +162,7 @@ If your page already uses jQuery or animejs, growl will use them instead.
 <li>Re-build the browser output bundle...<pre>npm run build-production</pre>
 ...and observe that webpack completed with no errors.</li>
 <li>Test the bundle by loading page: "dist/index.html" in a browser.</li>
-<li>Commit <pre>git commit -m "Release version x.x.x - description"</pre></li>
+<li>Commit <pre>git commit -a -m "Release version x.x.x - description"</pre></li>
 <li>Tag the commit with it's version number: "x.x.x".</li>
 <li>Change the "latest" tag pointer to the latest commit & push:
     <pre>git tag -f latest

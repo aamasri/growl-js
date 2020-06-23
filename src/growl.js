@@ -47,7 +47,7 @@ export default async function growl(options) {
         window.anime = window.anime.default;
     }
 
-    const domUtils = await import(/* webpackChunkName: "dom-utils" */ './dom-utils');
+    const domUtils = await import(/* webpackChunkName: "dom-utils" */ '@aamasri/dom-utils');
 
     if (debug) console.log('checking window.anime loaded', window.anime);
 

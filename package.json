@@ -7,7 +7,8 @@
   },
   "dependencies": {
     "animejs": "^3.2.0",
-    "jquery": ">=1.7.0 <4.0.0"
+    "jquery": ">=1.7.0 <4.0.0",
+    "@aamasri/dom-utils": "^1.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.10.3",
@@ -37,7 +38,10 @@
     "notification",
     "notifications",
     "javascript",
-    "popup"
+    "popup",
+    "ES6",
+    "ES7",
+    "ES2015"
   ],
   "author": "Ananda Masri <ananda@auroraweb.ca> (https://auroraweb.ca)",
   "license": "MIT",
