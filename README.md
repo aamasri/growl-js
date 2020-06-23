@@ -158,7 +158,6 @@ If your page already uses the jQuery, animejs, or @aamasri/dom-utils packages, g
 ## Manual release steps
 <ol>
 <li>Increment the "version" attribute of `package.json`.</li>
-<li>Increment the version number in the `src/growl.js` file.</li>
 <li>Re-build the browser output bundle...<pre>npm run build-production</pre>
 ...and observe that webpack completed with no errors.</li>
 <li>Test the bundle by loading page: "dist/index.html" in a browser.</li>

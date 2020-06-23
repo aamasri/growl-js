@@ -6,13 +6,15 @@
  ***************************************************/
 'use strict';
 
-
-const path = require('path');
 const webpack = require('webpack');
+const packageJson = require('./package.json');
+const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');               // creates index.html in web/public directory
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CleanObsoleteChunks = require('webpack-clean-obsolete-chunks');   // removes obsolete hashed files from previous builds
+const CleanObsoleteChunks = require('webpack-clean-obsolete-chunks');   // removes obsolete hashed files = require(previous builds
 const TerserPlugin = require('terser-webpack-plugin');
+
+
 const postCssLoader = {
     loader: 'postcss-loader',       // adds browser specific prefixes for improved html5 support
     options: {
@@ -56,9 +58,9 @@ module.exports = (env, argv) => {
     const isDev = argv.mode !== 'production';
     // const isDev = true;    // set false for production build
 
-    console.warn(`\n\n\n=============================================`);
-    console.info(`Building core Growl bundle for ${isDev ? 'development' : 'production'}...`);
-    console.warn(`=============================================`);
+    console.warn(`\n\n\n===========================================================`);
+    console.info(`Building core Growl bundle version: ${packageJson.version} for ${isDev ? 'development' : 'production'}...`);
+    console.warn(`===========================================================`);
 
 
     return {
@@ -139,7 +141,15 @@ module.exports = (env, argv) => {
                     ie8: false,
                     mangle: false
                 },
+            }),
+            new webpack.BannerPlugin({
+                banner: `
+ growl-js package version ${packageJson.version}
+ (c) 2020 Ananda Masri
+ Released under the MIT license
+ auroraweb.ca/giving-back/growl
+ `
             })
-        ],
+        ]
     };
 };
