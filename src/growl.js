@@ -106,119 +106,121 @@ export default async function growl(options) {
     // merge icon into message content
     options.message = icon + '</span><div class="message">' + options.message + '</div><div style="clear:both;"></div>';
 
-    // convert target (selector, DOM element, or jQuery object) to jQuery object
-    const $target = jQuery(options.target);
     const onTop = domUtils.onTopZIndex();
-
     let $growlBox;
+    let growlOffset = {};
+    let targetSpace = {};
 
-    // setup growl target location (where messages will appear)
+    // cancel any specified target that's not actually visible in the viewport
+    let $target = jQuery(options.target);
     if ($target.length) {
-        const targetSpace = domUtils.getViewportOffset($target);
-        const targetOffset = $target.offset();
-        let growlOffset = {};
+        targetSpace = domUtils.getViewportOffset($target);
 
-        // if target is not visible in the viewport (due to scroll position) then display growl on the growl noticeboard
         if (targetSpace.top < 0 || targetSpace.left < 0) {
             options.target = false;
-        } else {
-            // position growl relative to specified target element
-
-            // determine the growl id for this target
-            let targetId = 'growl-' + $target.prop('id');		// the growl prefix avoids collision with assignValue() server calls
-            targetId = (targetId) ? targetId : 'noTargetId';
-
-            // get any existing growl associated with this target (before creating the new one)
-            let $existingGrowl = jQuery('div.growlBox.' + targetId);
-
-            // create the new growl message box & insert the growl message content - position:relative allows content to show on top of bubbles
-            $growlBox = jQuery('<div id="growlBox' + growlMessageCount + '" class="growlBox '+targetId+' '+options.type+'" style="position:absolute;"></div>');
-            $growlBox.append('<div class="content" style="position:relative; word-wrap:break-word;">'+options.message+'</div>');
-            $growlBox.appendTo($body);
-
-
-            improveGrowlAspectRatio($growlBox);
-
-            // existing growl message for the specified target - if so position this message imediately under existing message (or replace if "overwrite" option set)
-            if (targetId !== 'noTargetId' && $existingGrowl.length && !options.overwrite) {
-                $existingGrowl = $existingGrowl.last();
-                // don't show the same message again
-                if ($existingGrowl.find('div.message').text() === $growlBox.find('div.message').text()) {
-                    $growlBox.remove();
-                    // console.info('second growl with same target id ('+targetId+') suppressed.' );
-                    return;
-                }
-                // position this message immediately under existing message
-                growlOffset = $existingGrowl.offset();
-                growlOffset.top += $existingGrowl.outerHeight() + 15;
-            } else {
-                // no existing growl message for specified target or overwrite mode set
-                if ($existingGrowl.length && options.overwrite)
-                    closeGrowl($existingGrowl);
-
-                // insert the thought bubbles - not essential but nice touch
-                $growlBox.prepend('<div class="bubble"><div class="bubble"></div></div>');
-                const $bubbles = $growlBox.find('div.bubble');
-                const $largeBubble = $bubbles.last();
-                const $smallBubble = $bubbles.first();
-                const bubbleSize = Math.sqrt($growlBox.outerHeight() * $growlBox.outerWidth()) / 4;
-                $largeBubble.css({'width':bubbleSize, 'height':bubbleSize, 'border-radius':bubbleSize/2 });
-                $smallBubble.css({'width':bubbleSize/2, 'height':bubbleSize/2, 'border-radius':bubbleSize/4 });
-
-                // chain animate bubbles & growl box so that they appear one after another
-                anime({
-                    targets: $bubbles.toArray(),
-                    opacity: [
-                        { value: [ 0, 1 ], duration: 1500 },
-                    ]
-                });
-
-                const OFFSET = 20;
-                const GROWL_WIDTH = $growlBox.outerWidth();
-                const WINDOW_WIDTH = jQuery(window).width();
-
-                // move the growl box over the specified target (but ensure message display inside the browser visible area)
-                if (targetSpace.right > targetSpace.left) {
-                    // more space on the right of the target
-                    $smallBubble.css('left', '-20px');
-                    $largeBubble.css('left', '5px');
-                    let leftOffset = targetOffset.left + $target.outerWidth() + OFFSET;
-                    growlOffset.left = ((WINDOW_WIDTH - leftOffset) < GROWL_WIDTH) ? leftOffset - GROWL_WIDTH : leftOffset;
-                    $growlBox.addClass('right');
-                    $growlBox.css('margin', '0 10px 0 0');
-                } else {
-                    // show growl to left of target
-                    $smallBubble.css('left', GROWL_WIDTH + 'px');
-                    $largeBubble.css('left', - bubbleSize/1.5 + 'px');
-                    let leftOffset = targetOffset.left - GROWL_WIDTH - OFFSET;
-                    growlOffset.left = (leftOffset < OFFSET) ? OFFSET : leftOffset;
-                    $growlBox.addClass('left');
-                    $growlBox.css('margin', '0 0 0 10px');
-                }
-                if (targetSpace.top > targetSpace.bottom) {
-                    // more space above target)
-                    $smallBubble.css('top', $growlBox.outerHeight() + 'px');
-                    $largeBubble.css('top', -bubbleSize/1.5 + 'px');
-                    growlOffset.top = targetOffset.top - $growlBox.outerHeight() - OFFSET;
-                    $growlBox.addClass('above');
-                } else {
-                    // show growl below target
-                    $largeBubble.css('top', '5px');
-                    $smallBubble.css('top', '-20px');
-                    growlOffset.top = targetOffset.top + $target.outerHeight() + OFFSET;
-                    $growlBox.addClass('below');
-                }
-            }
-
-            // apply the calculated position & z-index to the new growl message
-            $growlBox.css({ 'top': growlOffset.top + 'px', 'left': growlOffset.left + 'px', 'z-index': onTop });
-
-            // remove the growl box if it's target element disappears
-            $target.on('remove', function () {
-                if (!$target.length)
-                    closeGrowl($growlBox);
-            });
+            $target = jQuery();
         }
+    }
+
+    // setup growl on a target
+    if ($target.length) {
+        // position growl relative to specified target element
+
+        // determine the growl id for this target
+        let targetId = 'growl-' + $target.prop('id');		// the growl prefix avoids collision with assignValue() server calls
+        targetId = (targetId) ? targetId : 'noTargetId';
+
+        // get any existing growl associated with this target (before creating the new one)
+        let $existingGrowl = jQuery('div.growlBox.' + targetId);
+
+        // create the new growl message box & insert the growl message content - position:relative allows content to show on top of bubbles
+        $growlBox = jQuery('<div id="growlBox' + growlMessageCount + '" class="growlBox '+targetId+' '+options.type+'" style="position:absolute;"></div>');
+        $growlBox.append('<div class="content" style="position:relative; word-wrap:break-word;">'+options.message+'</div>');
+        $growlBox.appendTo($body);
+
+
+        improveGrowlAspectRatio($growlBox);
+
+        // existing growl message for the specified target - if so position this message imediately under existing message (or replace if "overwrite" option set)
+        if (targetId !== 'noTargetId' && $existingGrowl.length && !options.overwrite) {
+            $existingGrowl = $existingGrowl.last();
+            // don't show the same message again
+            if ($existingGrowl.find('div.message').text() === $growlBox.find('div.message').text()) {
+                $growlBox.remove();
+                // console.info('second growl with same target id ('+targetId+') suppressed.' );
+                return;
+            }
+            // position this message immediately under existing message
+            growlOffset = $existingGrowl.offset();
+            growlOffset.top += $existingGrowl.outerHeight() + 15;
+        } else {
+            // no existing growl message for specified target or overwrite mode set
+            if ($existingGrowl.length && options.overwrite)
+                closeGrowl($existingGrowl);
+
+            // insert the thought bubbles - not essential but nice touch
+            $growlBox.prepend('<div class="bubble"><div class="bubble"></div></div>');
+            const $bubbles = $growlBox.find('div.bubble');
+            const $largeBubble = $bubbles.last();
+            const $smallBubble = $bubbles.first();
+            const bubbleSize = Math.sqrt($growlBox.outerHeight() * $growlBox.outerWidth()) / 4;
+            $largeBubble.css({'width':bubbleSize, 'height':bubbleSize, 'border-radius':bubbleSize/2 });
+            $smallBubble.css({'width':bubbleSize/2, 'height':bubbleSize/2, 'border-radius':bubbleSize/4 });
+
+            // chain animate bubbles & growl box so that they appear one after another
+            anime({
+                targets: $bubbles.toArray(),
+                opacity: [
+                    { value: [ 0, 1 ], duration: 1500 },
+                ]
+            });
+
+            const OFFSET = 20;
+            const GROWL_WIDTH = $growlBox.outerWidth();
+            const WINDOW_WIDTH = jQuery(window).width();
+            const targetOffset = $target.offset();
+
+            // move the growl box over the specified target (but ensure message display inside the browser visible area)
+            if (targetSpace.right > targetSpace.left) {
+                // more space on the right of the target
+                $smallBubble.css('left', '-20px');
+                $largeBubble.css('left', '5px');
+                let leftOffset = targetOffset.left + $target.outerWidth() + OFFSET;
+                growlOffset.left = ((WINDOW_WIDTH - leftOffset) < GROWL_WIDTH) ? leftOffset - GROWL_WIDTH : leftOffset;
+                $growlBox.addClass('right');
+                $growlBox.css('margin', '0 10px 0 0');
+            } else {
+                // show growl to left of target
+                $smallBubble.css('left', GROWL_WIDTH + 'px');
+                $largeBubble.css('left', - bubbleSize/1.5 + 'px');
+                let leftOffset = targetOffset.left - GROWL_WIDTH - OFFSET;
+                growlOffset.left = (leftOffset < OFFSET) ? OFFSET : leftOffset;
+                $growlBox.addClass('left');
+                $growlBox.css('margin', '0 0 0 10px');
+            }
+            if (targetSpace.top > targetSpace.bottom) {
+                // more space above target)
+                $smallBubble.css('top', $growlBox.outerHeight() + 'px');
+                $largeBubble.css('top', -bubbleSize/1.5 + 'px');
+                growlOffset.top = targetOffset.top - $growlBox.outerHeight() - OFFSET;
+                $growlBox.addClass('above');
+            } else {
+                // show growl below target
+                $largeBubble.css('top', '5px');
+                $smallBubble.css('top', '-20px');
+                growlOffset.top = targetOffset.top + $target.outerHeight() + OFFSET;
+                $growlBox.addClass('below');
+            }
+        }
+
+        // apply the calculated position & z-index to the new growl message
+        $growlBox.css({ 'top': growlOffset.top + 'px', 'left': growlOffset.left + 'px', 'z-index': onTop });
+
+        // remove the growl box if it's target element disappears
+        $target.on('remove', function () {
+            if (!$target.length)
+                closeGrowl($growlBox);
+        });
     } else {
         // no specified target or specified target is scrolled outside the viewport
         let $growlNoticeboard = jQuery('#growlNoticeboard');
