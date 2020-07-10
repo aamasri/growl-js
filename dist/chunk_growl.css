@@ -1,6 +1,6 @@
 /*!
  * 
- *  growl-js package version 1.0.9
+ *  growl-js package version 1.0.10
  *  (c) 2020 Ananda Masri
  *  Released under the MIT license
  *  auroraweb.ca/giving-back/growl

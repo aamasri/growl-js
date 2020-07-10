@@ -20,8 +20,13 @@ growl({ message: 'Excellent, Growl is working!', target: 'button' });
 </ul>
 
 <br><br>
+<h2>Demo</h2>
+<a href="https://auroraweb.ca/demos/growl-js">Try me</a>
+
+
+<br><br>
 <h2>Installation</h2>
-Growl-js is a javascript package built for and using the ES6 module system, but it also provided as a pre-built, minified browser package (in this package's "dist" folder).
+Growl-js is a javascript package built for and using the ES6 module system, but it's also provided as a pre-built, minified browser package (in this package's "dist" folder).
 
 <br>
 <h3>Browser</h3>
@@ -162,7 +167,7 @@ If your page already uses the jQuery, animejs, or @aamasri/dom-utils packages, g
 ...and observe that webpack completed with no errors.</li>
 <li>Test the bundle by loading page: "dist/index.html" in a browser.</li>
 <li>Commit <pre>git commit -a -m "Release version x.x.x - description"</pre></li>
-<li>Tag the commit with it's version number: "x.x.x".</li>
+<li>Tag the commit with it's version number <pre>git tag x.x.x</pre></li>
 <li>Change the "latest" tag pointer to the latest commit & push:
     <pre>git tag -f latest
 git push origin master :refs/tags/latest
