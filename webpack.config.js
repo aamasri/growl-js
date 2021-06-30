@@ -11,14 +11,17 @@ const packageJson = require('./package.json');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');               // creates index.html in web/public directory
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CleanObsoleteChunks = require('webpack-clean-obsolete-chunks');   // removes obsolete hashed files = require(previous builds
 const TerserPlugin = require('terser-webpack-plugin');
 
 
 const postCssLoader = {
     loader: 'postcss-loader',       // adds browser specific prefixes for improved html5 support
     options: {
-        config: { path: 'web/postcss.config.js' }
+        postcssOptions: {
+            plugins: [
+                require('autoprefixer')
+            ]
+        }
     }
 };
 const babelLoader = {
@@ -45,7 +48,8 @@ const babelLoader = {
                     targets: '> 1.5%, not dead',
                     modules: false,   // by default, Babel rewrites modules to use CommonJS, which won’t tree-shake!
                 },
-            ]
+            ],
+            '@babel/preset-flow'
         ],
         cacheDirectory: true,    // speeds up babel compilation (default cache: node_modules/.cache/babel-loader)
     }
@@ -69,7 +73,8 @@ module.exports = (env, argv) => {
             path: path.resolve(__dirname, './dist'),
             filename: 'growl.js',
             publicPath: '/',                        // where browser will request the webpack files
-            chunkFilename: 'chunk_[name].js'        // chunk filename
+            chunkFilename: 'chunk_[name].js',       // chunk filename
+            clean: true                             // clean the output directory before emit.
         },
         watch: isDev,
         devtool: isDev ? 'source-map' : false,  // useful for debugging.
@@ -108,7 +113,6 @@ module.exports = (env, argv) => {
 
 
         plugins: [
-            new CleanObsoleteChunks(),  // removes obsolete hashed files from previous builds
             new HtmlWebpackPlugin({
                 template: sourcePath + 'demo.html',
                 minify: !isDev && {
@@ -119,13 +123,7 @@ module.exports = (env, argv) => {
             }),
             new MiniCssExtractPlugin({
                 filename: 'index.css',
-                chunkFilename: 'chunk_[name].css',
-                options: {
-                    esModule: true,     // default is CommonJS modules syntax - ESM allows tree shaking
-                    publicPath: 'dist',
-                    sourceMap: isDev,
-                    minimize: !isDev,
-                },
+                chunkFilename: 'chunk_[name].css'
             }),
             new webpack.ProvidePlugin({
                 $: 'jquery',    // eg. $('#item') will just work anywhere (without jQuery require)
@@ -134,9 +132,7 @@ module.exports = (env, argv) => {
                 parallel: true,
                 extractComments: false,     // don't extract code comments (ie licence agreements) to a separate text file
                 terserOptions: {
-                    output: {comments: false},
                     sourceMap: isDev,
-                    cache: true,
                     ecma: 5,
                     ie8: false,
                     mangle: false
