@@ -1,7 +1,7 @@
 {
   "name": "growl-js",
-  "version": "1.0.12",
-  "versionDescription": "Force new growl to be on-top in all situations.",
+  "version": "1.0.13",
+  "versionDescription": "Merged pull request - lodash upgrade.",
   "scripts": {
     "build-production": "webpack --mode production",
     "build": "webpack --mode development",
