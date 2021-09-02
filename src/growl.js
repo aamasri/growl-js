@@ -106,7 +106,7 @@ export default async function growl(options) {
     // merge icon into message content
     options.message = icon + '</span><div class="message">' + options.message + '</div><div style="clear:both;"></div>';
 
-    const onTop = domUtils.onTopZIndex();
+    const onTop = domUtils.onTopZIndex() + 1;   // +1 means on-top regardless of document precedence
     let $growlBox;
     let growlOffset = {};
     let targetSpace = {};

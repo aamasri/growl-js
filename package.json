@@ -1,7 +1,7 @@
 {
   "name": "growl-js",
-  "version": "1.0.11",
-  "versionDescription": "Upgraded webpack and all packages.",
+  "version": "1.0.12",
+  "versionDescription": "Force new growl to be on-top in all situations.",
   "scripts": {
     "build-production": "webpack --mode production",
     "build": "webpack --mode development",
