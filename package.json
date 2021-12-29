@@ -1,7 +1,7 @@
 {
   "name": "growl-js",
-  "version": "1.0.13",
-  "versionDescription": "Merged pull request - lodash upgrade.",
+  "version": "1.0.14",
+  "versionDescription": "Fixed issue with growl placement on large targets.",
   "scripts": {
     "build-production": "webpack --mode production",
     "build": "webpack --mode development",
@@ -9,7 +9,7 @@
     "publish": "node ./publish.js"
   },
   "dependencies": {
-    "@aamasri/dom-utils": "^1.0.4",
+    "@aamasri/dom-utils": "^1.1.5",
     "animejs": "^3.2.0",
     "jquery": ">=1.7.0 <4.0.0"
   },
@@ -20,11 +20,11 @@
     "@babel/preset-flow": "^7.14.5",
     "autoprefixer": "^10.2.6",
     "babel-loader": "^8.1.0",
-    "css-loader": "^5.2.6",
+    "css-loader": "^6.5.1",
     "html-webpack-plugin": "^5.3.2",
     "mini-css-extract-plugin": "^2.0.0",
     "postcss-loader": "^6.1.0",
-    "stylus": "^0.54.7",
+    "stylus": "^0.56.0",
     "stylus-loader": "^6.1.0",
     "terser-webpack-plugin": "^5.1.4",
     "webpack": "^5.41.1",

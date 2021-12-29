@@ -116,7 +116,10 @@ export default async function growl(options) {
     if ($target.length) {
         targetSpace = domUtils.getViewportOffset($target);
 
-        if (targetSpace.top < 0 || targetSpace.left < 0) {
+        if (debug) console.debug('target visible', domUtils.isVisible($target));
+
+        // if the target is outside the viewport or invisible or fills the entire viewport
+        if (!domUtils.isVisible($target) || (targetSpace.top < 100 && targetSpace.right < 100 && targetSpace.bottom < 100 && targetSpace.left < 100)) {
             options.target = false;
             $target = jQuery();
         }
@@ -198,6 +201,7 @@ export default async function growl(options) {
                 $growlBox.addClass('left');
                 $growlBox.css('margin', '0 0 0 10px');
             }
+
             if (targetSpace.top > targetSpace.bottom) {
                 // more space above target)
                 $smallBubble.css('top', $growlBox.outerHeight() + 'px');
@@ -332,15 +336,15 @@ async function popupGrowl($growlBox, durationMs) {
 
     // popup animation followed by message duration delay
     await anime({
-            targets: $growlBox[0],
-            opacity: [
-                { value: [ 0, 1 ], duration: easeInDuration },
-            ],
-            scale: [
-                { value: [ 0, 1 ], duration: easeInDuration },
-                { value: 1, duration: durationMs },	// delay growl removal
-            ],
-            easing: 'easeOutElastic(1, 0.6)'
+        targets: $growlBox[0],
+        opacity: [
+            { value: [ 0, 1 ], duration: easeInDuration },
+        ],
+        scale: [
+            { value: [ 0, 1 ], duration: easeInDuration },
+            { value: 1, duration: durationMs },	// delay growl removal
+        ],
+        easing: 'easeOutElastic(1, 0.6)'
     }).finished;
 
     if (autoCloseGrowl && !debug)
