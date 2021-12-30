@@ -306,8 +306,6 @@ export default async function growl(options) {
 
 // improve growl box aspect ratio
 function improveGrowlAspectRatio($growlBox) {
-    const $message = $growlBox.find('.message');
-
     let width = $growlBox.width();
     const height = $growlBox.height();
     const aspectRatio = width / height;
@@ -316,7 +314,7 @@ function improveGrowlAspectRatio($growlBox) {
     if (width > 250 && aspectRatio > 3) {
         width = width * 1.5 / Math.sqrt(aspectRatio);
         $growlBox.width(width);
-        if (debug) console.debug(`squared up growl box width`, $message.css('width'));
+        if (debug) console.debug(`squared up growl box width`, $growlBox.find('.message').css('width'));
     }
 }
 
