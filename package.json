@@ -1,7 +1,7 @@
 {
   "name": "growl-js",
-  "version": "1.0.15",
-  "versionDescription": "Improved on growl width issue (too wide in some cases).",
+  "version": "1.0.16",
+  "versionDescription": "Fixed growl targetting positioning  issue.",
   "scripts": {
     "build-production": "webpack --mode production",
     "build": "webpack --mode development",
