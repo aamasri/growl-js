@@ -114,12 +114,12 @@ export default async function growl(options) {
     // cancel any specified target that's not actually visible in the viewport
     let $target = jQuery(options.target);
     if ($target.length) {
-        targetSpace = domUtils.getViewportOffset($target);
+        targetSpace = domUtils.getViewportOffset($target);  // can return undefined
 
         if (debug) console.debug('target visible', domUtils.isVisible($target));
 
         // if the target is outside the viewport or invisible or fills the entire viewport
-        if (!domUtils.isVisible($target) || (targetSpace.top < 100 && targetSpace.right < 100 && targetSpace.bottom < 100 && targetSpace.left < 100)) {
+        if (typeof targetSpace !== 'object' || !domUtils.isVisible($target) || (targetSpace.top < 100 && targetSpace.right < 100 && targetSpace.bottom < 100 && targetSpace.left < 100)) {
             options.target = false;
             $target = jQuery();
         }

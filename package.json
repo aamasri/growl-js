@@ -1,7 +1,7 @@
 {
   "name": "growl-js",
-  "version": "1.0.16",
-  "versionDescription": "Fixed growl targetting positioning  issue.",
+  "version": "1.0.17",
+  "versionDescription": "Handle target position failure in @aamasri/dom-utils getViewportOffset().",
   "scripts": {
     "build-production": "webpack --mode production",
     "build": "webpack --mode development",
@@ -9,7 +9,7 @@
     "publish": "node ./publish.js"
   },
   "dependencies": {
-    "@aamasri/dom-utils": "^1.1.5",
+    "@aamasri/dom-utils": "^1.1.6",
     "animejs": "^3.2.0",
     "jquery": ">=1.7.0 <4.0.0"
   },
@@ -24,7 +24,7 @@
     "html-webpack-plugin": "^5.3.2",
     "mini-css-extract-plugin": "^2.0.0",
     "postcss-loader": "^6.1.0",
-    "stylus": "^0.56.0",
+    "stylus": "^0.57.0",
     "stylus-loader": "^6.1.0",
     "terser-webpack-plugin": "^5.1.4",
     "webpack": "^5.41.1",
