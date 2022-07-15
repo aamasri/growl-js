@@ -1,7 +1,7 @@
 {
   "name": "growl-js",
-  "version": "1.0.17",
-  "versionDescription": "Handle target position failure in @aamasri/dom-utils getViewportOffset().",
+  "version": "1.0.18",
+  "versionDescription": "Override body text color.",
   "scripts": {
     "build-production": "webpack --mode production",
     "build": "webpack --mode development",
@@ -23,9 +23,9 @@
     "css-loader": "^6.5.1",
     "html-webpack-plugin": "^5.3.2",
     "mini-css-extract-plugin": "^2.0.0",
-    "postcss-loader": "^6.1.0",
-    "stylus": "^0.57.0",
-    "stylus-loader": "^6.1.0",
+    "postcss-loader": "^7.0.1",
+    "stylus": "^0.58.1",
+    "stylus-loader": "^7.0.0",
     "terser-webpack-plugin": "^5.1.4",
     "webpack": "^5.41.1",
     "webpack-cli": "^4.7.2"

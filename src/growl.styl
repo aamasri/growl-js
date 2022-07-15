@@ -1,6 +1,7 @@
 /* growl message popup system */
 
 $growlBackground = #000
+$growlTextColor = #FFF
 $growlBorder = 1px solid $growlBackground
 $growlBoxShadow = 0 0 28px #CCC
 $xxs = 8px
@@ -46,7 +47,7 @@ div.growlBox
         border $growlBorder
         border-radius 6px
         box-shadow $growlBoxShadow
-        color #FFF
+        color $growlTextColor
         font-size 1rem
         line-height 1.5rem
         text-align left
@@ -75,46 +76,50 @@ div.growlBox
                 color #5bc0de
                 fill #5bc0de
 
-    .disableTutorialButton
-        margin 10px 0 0 0
-
-    .message
-        font-size inherit
-        line-height inherit
-
-        *
-            margin 0
+        .message
             font-size inherit
             line-height inherit
+            color $growlTextColor  /* override body styles on <p> etc */
 
-            &.xs
-                font-size $xxs
-                line-height $xs
+            *
+                margin 0
+                font-size inherit
+                line-height inherit
 
-            &.sm
-                font-size $xs
-                line-height $sm
+                &.xs
+                    font-size $xxs
+                    line-height $xs
 
-            &.lg
-                font-size $md
-                line-height $lg
+                &.sm
+                    font-size $xs
+                    line-height $sm
 
-            &.xl
-                font-size $lg
-                line-height $xl
+                &.lg
+                    font-size $md
+                    line-height $lg
 
-            &.xxl
-                font-size $xl
-                line-height $xxl
+                &.xl
+                    font-size $lg
+                    line-height $xl
 
-        a
-            border-bottom 1px solid #888
+                &.xxl
+                    font-size $xl
+                    line-height $xxl
 
-        ul
-            list-style disc
-            list-style-position inside
-        li
-            display list-item
+            a
+                border-bottom 1px solid #888
+
+            ul
+                list-style disc
+                list-style-position inside
+            li
+                display list-item
+
+            *
+                color $growlTextColor  /* override body styles on <p> etc */
+
+    .disableTutorialButton
+        margin 10px 0 0 0
 
     .progress
         position relative
