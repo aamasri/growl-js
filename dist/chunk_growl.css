@@ -1,6 +1,6 @@
 /*!
  * 
- *  growl-js package version 1.0.20
+ *  growl-js package version 1.0.21
  *  (c) 2020 Ananda Masri
  *  Released under the MIT license
  *  auroraweb.ca/giving-back/growl
@@ -76,7 +76,7 @@ div.growlBox .content .message {
   line-height: inherit;
   color: #fff /* override body styles on <p> etc */;
 }
-div.growlBox .content .message *:not(button):not(.btn) {
+div.growlBox .content .message *:not(button):not(.btn):not(.btn *) {
   color: #fff /* override body styles on <p> etc */;
 }
 div.growlBox .content .message * {
