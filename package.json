@@ -1,7 +1,7 @@
 {
   "name": "growl-js",
-  "version": "1.0.18",
-  "versionDescription": "Override body text color.",
+  "version": "1.0.19",
+  "versionDescription": "Don't override button color.",
   "scripts": {
     "build-production": "webpack --mode production",
     "build": "webpack --mode development",
