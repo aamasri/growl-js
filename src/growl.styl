@@ -81,6 +81,9 @@ div.growlBox
             line-height inherit
             color $growlTextColor  /* override body styles on <p> etc */
 
+            *:not(button):not(.btn)
+                color $growlTextColor  /* override body styles on <p> etc */
+
             *
                 margin 0
                 font-size inherit
@@ -114,9 +117,6 @@ div.growlBox
                 list-style-position inside
             li
                 display list-item
-
-            *:not(button):not(.btn)
-                color $growlTextColor  /* override body styles on <p> etc */
 
     .disableTutorialButton
         margin 10px 0 0 0
