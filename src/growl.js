@@ -16,7 +16,7 @@ let growlMessageCount = 0;
  *
  * options object
  * 		message: 		[STRING] 			the (HTML) message content to display
- * 		type:			[STRING] 			(optional) the type of message ie. success, error, warning, info (default)
+ * 		type:			[STRING] 			(optional) the type of message i.e. success, error, warning, info (default)
  * 		target: 		[STRING] 			(optional) target element (DOM element, css selector string, or jQuery object) to attach the growl notification, else will be appended to #growlNoticeboard
  * 		duration:		[NUMBER] 			(optional) how long the message is displayed (in seconds). 0 implies forever (ie dismissed by end-user).  Default: automatic
  * 		overwrite:		[BOOLEAN]  			(optional) make this growl message replace any existing message on the specified target
@@ -25,7 +25,7 @@ let growlMessageCount = 0;
  * @param {Object.<string, {
  *      message: string,
  *      type: string
- *      target: string | undefined,
+ *      target: string | Element | undefined,
  *      duration: number | undefined,
  *      overwrite: boolean | undefined,
  *
@@ -131,7 +131,7 @@ export default async function growl(options) {
 
         // determine the growl id for this target
         let targetId = 'growl-' + $target.prop('id');		// the growl prefix avoids collision with assignValue() server calls
-        targetId = (targetId) ? targetId : 'noTargetId';
+        targetId = targetId ? targetId : 'noTargetId';
 
         // get any existing growl associated with this target (before creating the new one)
         let $existingGrowl = jQuery('div.growlBox.' + targetId);
@@ -144,7 +144,7 @@ export default async function growl(options) {
 
         improveGrowlAspectRatio($growlBox);
 
-        // existing growl message for the specified target - if so position this message imediately under existing message (or replace if "overwrite" option set)
+        // existing growl message for the specified target - if so position this message immediately under existing message (or replace if "overwrite" option set)
         if (targetId !== 'noTargetId' && $existingGrowl.length && !options.overwrite) {
             $existingGrowl = $existingGrowl.last();
             // don't show the same message again
@@ -203,7 +203,7 @@ export default async function growl(options) {
             }
 
             if (targetSpace.top > targetSpace.bottom) {
-                // more space above target)
+                // more space above target
                 $smallBubble.css('top', $growlBox.outerHeight() + 'px');
                 $largeBubble.css('top', -bubbleSize/1.5 + 'px');
                 growlOffset.top = targetOffset.top - $growlBox.outerHeight() - OFFSET;

@@ -1,7 +1,7 @@
 {
   "name": "growl-js",
-  "version": "1.0.21",
-  "versionDescription": "Don't override button color or icons in a button.",
+  "version": "1.0.22",
+  "versionDescription": "Upgraded all packages, corrected jsDoc & some typos.",
   "scripts": {
     "build-production": "webpack --mode production",
     "build": "webpack --mode development",
@@ -9,26 +9,26 @@
     "publish": "node ./publish.js"
   },
   "dependencies": {
-    "@aamasri/dom-utils": "^1.1.6",
-    "animejs": "^3.2.0",
-    "jquery": ">=1.7.0 <4.0.0"
+    "@aamasri/dom-utils": "^1.x",
+    "animejs": "^3.x",
+    "jquery": ">=3.6.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.10.4",
-    "@babel/plugin-transform-runtime": "^7.10.4",
-    "@babel/preset-env": "^7.10.4",
-    "@babel/preset-flow": "^7.14.5",
-    "autoprefixer": "^10.2.6",
-    "babel-loader": "^8.1.0",
-    "css-loader": "^6.5.1",
-    "html-webpack-plugin": "^5.3.2",
-    "mini-css-extract-plugin": "^2.0.0",
-    "postcss-loader": "^7.0.1",
-    "stylus": "^0.58.1",
-    "stylus-loader": "^3.0.2",
-    "terser-webpack-plugin": "^5.1.4",
-    "webpack": "^5.41.1",
-    "webpack-cli": "^4.7.2"
+    "@babel/core": "^7.x",
+    "@babel/plugin-transform-runtime": "^7.x",
+    "@babel/preset-env": "^7.x",
+    "@babel/preset-flow": "^7.x",
+    "autoprefixer": "^10.x",
+    "babel-loader": "^9.x",
+    "css-loader": "^6.x",
+    "html-webpack-plugin": "^5.x",
+    "mini-css-extract-plugin": "^2.x",
+    "postcss-loader": "^7.x",
+    "stylus": "^0.x",
+    "stylus-loader": "^7.x",
+    "terser-webpack-plugin": "^5.x",
+    "webpack": "^5.x",
+    "webpack-cli": "^5.x"
   },
   "description": "A classy notification system for the browser",
   "main": "src/growl.js",
